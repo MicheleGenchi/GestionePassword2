@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+        <title>Registrazione</title>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    </h:head>
+    <h:body>
+        <center>
+            <div class="container">    
+                <div id="loginbox" style="margin-top: 10%" class="mainbox col-lg-4 col-lg-offset-4">                    
+                    <div class="panel panel-info" >
+                        <div class="panel-heading">
+                            <div class="panel-title">Accesso al programma</div>
+                        </div>     
+
+                        <div style="padding-top:30px" class="panel-body" >
+
+                            <h:form class="form-horizontal">
+                                <div style="margin-bottom: 25px" class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                    <h:inputText  class="form-control" id="utente" value="#{controller.login.utente}" title="Utente" required="true" requiredMessage="The Utente field is required">
+                                        <f:passThroughAttribute name="placeholder" value="Digita il tuo nome" />
+                                    </h:inputText>
+                                </div>
+                                <div style="margin-bottom: 25px" class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    <h:inputText  class="form-control" id="password" value="#{controller.login.password}" title="Password" required="true" requiredMessage="The Password field is required.">
+                                        <f:passThroughAttribute name="type" value="password" />
+                                        <f:passThroughAttribute name="placeholder" value="Digita la password" />
+                                    </h:inputText>
+                                </div>
+                                <div style="margin-bottom: 25px" class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>   
+                                    <h:inputText class="form-control"  id="email" value="#{controller.email.email}" title="Email" required="true" requiredMessage="The Email field is required.">
+                                        <f:passThroughAttribute name="type" value="email" /> 
+                                        <f:passThroughAttribute name="placeholder" value="Digita la tua email" />
+                                    </h:inputText>
+                                </div>
+                                <div style="margin-bottom: 25px" class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                    <h:inputText class="form-control" id="Epassword" value="#{controller.email.password}" title="EPassword" required="true" requiredMessage="The Password field is required.">
+                                        <f:passThroughAttribute name="type" value="password" />
+                                        <f:passThroughAttribute name="placeholder" value="Digita la password email" />
+                                    </h:inputText>
+                                </div>
+                                <br/><br/>
+                                <div class="" style="padding-top: 2em">
+                                    <h:commandButton  style="alignment-adjust: central" class="btn btn-success" value="REGISTRAMI" action="#{controller.add()}" ></h:commandButton>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </center>
+    </h:body>
+</html>
+
