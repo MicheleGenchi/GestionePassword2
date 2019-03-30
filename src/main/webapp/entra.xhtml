@@ -8,13 +8,13 @@
     <h:head>
         <meta charset="utf-8"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
-        <title>Programma avviato</title>
+        <title>Programma delle password</title>
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <h:outputStylesheet library="css" name="default.css"/>
         <h:outputStylesheet library="css" name="cssLayout.css"/>
-        <title>Facelets Template</title>
+        <h:outputScript library="js" name="mioScript.js"/>
     </h:head>
 
     <h:body>
@@ -34,7 +34,7 @@
                     <h:form>
                         <div class="list-group">
                             <ui:repeat value="#{controller.listTipo}" var="item">
-                                <a class="list-group-item" href="#">#{item.descrizione}</a>
+                                <a id="sceltaTipo" class="list-group-item" href="#" onclick="myfunction(this)">#{item.descrizione}</a>
                             </ui:repeat>
                         </div>
                     </h:form>
@@ -68,10 +68,9 @@
             </div>
         </div>
 
-
         <div id="content" class="left_content">
             <ui:insert name="content">Content</ui:insert>
         </div>
     </h:body>
-
 </html>
+
