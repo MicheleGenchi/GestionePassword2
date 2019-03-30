@@ -1,49 +1,77 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <h:head>
-        <title>Facelet Title</title>
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+        <title>Programma avviato</title>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <title>Facelets Template</title>
     </h:head>
+
     <h:body>
-        <h1>Congratulazione Utente registrato</h1>
-        <h2> Utente : #{controller.login.utente}</h2>
-        <f:view>
+        <div id="top">
+            <ui:insert name="top">Top</ui:insert>
+            <h2> Utente : #{controller.login.utente}</h2>
+        </div>
+
+        <div id="left">
+            <ui:insert name="left"></ui:insert>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <h1><h:outputText value="Gruppo"/></h1>
+                </div>
+                <f:view>
+                    <h:form>
+                        <div class="list-group">
+                            <ui:repeat value="#{controller.listTipo}" var="item">
+                                <a class="list-group-item" href="#">#{item.descrizione}</a>
+                            </ui:repeat>
+                        </div>
+                    </h:form>
+                </f:view>
+            </div>
+        </div>
+
+        <div id="right">
+            <ui:insert name="right"></ui:insert>
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <h1><h:outputText value="Le tue Email"/></h1>
+                </div>
+                <f:view>
+                    <h:dataTable class="table" value="#{controller.listEmail}" var="item">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Email"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Password"/>
+                            </f:facet>
+                            <h:outputText value="#{item.password}"/>
+                        </h:column>
+                    </h:dataTable>
+                </f:view>
+            </div>
+        </div>
 
 
-            <h:form>
-                <h1><h:outputText value="List"/></h1>
-                <h:dataTable value="#{controller.listEmail}" var="item">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="IdEmail"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idEmail}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Email"/>
-                        </f:facet>
-                        <h:outputText value="#{item.email}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Password"/>
-                        </f:facet>
-                        <h:outputText value="#{item.password}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Utente"/>
-                        </f:facet>
-                        <h:outputText value="#{item.utente.utente}"/>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-        </f:view>
-
-
+        <div id="content" class="left_content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
     </h:body>
-</html>
 
+</html>

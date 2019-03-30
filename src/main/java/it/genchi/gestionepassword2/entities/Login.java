@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 })
 public class Login implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -51,6 +51,8 @@ public class Login implements Serializable {
     private String password;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "utente")
     private List<Email> emailList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "login")
+    private List<Sito> sitoList;
 
     public Login() {
         
@@ -113,6 +115,15 @@ public class Login implements Serializable {
     @Override
     public String toString() {
         return "it.genchi.gestionepassword2.entities.Login[ utente=" + utente + " ]";
+    }
+
+    @XmlTransient
+    public List<Sito> getSitoList() {
+        return sitoList;
+    }
+
+    public void setSitoList(List<Sito> sitoList) {
+        this.sitoList = sitoList;
     }
     
 }

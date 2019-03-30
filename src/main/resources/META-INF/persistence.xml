@@ -4,6 +4,9 @@
     <jta-data-source>java:app/jdbc/password2</jta-data-source>
     <class>it.genchi.gestionepassword2.entities.Email</class>
     <class>it.genchi.gestionepassword2.entities.Login</class>
+    <class>it.genchi.gestionepassword2.entities.Sito</class>
+    <class>it.genchi.gestionepassword2.entities.Prodotto</class>
+    <class>it.genchi.gestionepassword2.entities.Tipo</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
     </properties>

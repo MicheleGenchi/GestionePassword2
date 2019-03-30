@@ -22,11 +22,15 @@ public abstract class AbstractFacade<T> {
 
     @PersistenceContext(unitName = "pu")
     protected EntityManager em;
-
+    
     private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
+    }
+    
+    public EntityManager getEntityManager() {
+        return em;
     }
 
     @Transactional

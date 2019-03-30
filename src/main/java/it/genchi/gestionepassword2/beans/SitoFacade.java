@@ -5,20 +5,18 @@
  */
 package it.genchi.gestionepassword2.beans;
 
-import it.genchi.gestionepassword2.entities.Email;
+import it.genchi.gestionepassword2.entities.Sito;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *
  * @author JAVASE
  */
 @Stateless
-public class EmailFacade extends AbstractFacade<Email> {
+public class SitoFacade extends AbstractFacade<Sito> {
 
-    public EmailFacade() {
-        super(Email.class);
+    public SitoFacade() {
+        super(Sito.class);
     }
     
 }

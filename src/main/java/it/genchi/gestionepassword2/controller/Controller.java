@@ -7,9 +7,15 @@ package it.genchi.gestionepassword2.controller;
 
 import it.genchi.gestionepassword2.beans.EmailFacade;
 import it.genchi.gestionepassword2.beans.LoginFacade;
+import it.genchi.gestionepassword2.beans.SitoFacade;
+import it.genchi.gestionepassword2.beans.TipoFacade;
 import it.genchi.gestionepassword2.entities.Email;
 import it.genchi.gestionepassword2.entities.Login;
+import it.genchi.gestionepassword2.entities.Sito;
+import it.genchi.gestionepassword2.entities.Tipo;
+import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.persistence.Query;
 
@@ -21,6 +27,12 @@ import javax.persistence.Query;
 public class Controller {
 
     @EJB
+    private SitoFacade sitoFacade;
+
+    @EJB
+    private TipoFacade tipoFacade;
+
+    @EJB
     private EmailFacade emailFacade;
 
     @EJB
@@ -28,13 +40,20 @@ public class Controller {
 
     private  Login login;
     private  Email email;
+    private Tipo tipo;
+    private Sito sito;
     private List<Email> listEmail;
+    private List<Tipo> listTipo;
+
+            
     private boolean exist = true;
 
-    public Controller() {
+    @PostConstruct
+    public void init() {
         login = new Login();
         email = new Email();
         listEmail=login.getEmailList();
+        listTipo=new ArrayList<>();
     }
 
     public String validate() {
@@ -46,9 +65,9 @@ public class Controller {
     }
 
     public String add() {
-        loginFacade.create(login);
-        email.setUtente(login);
-        emailFacade.edit(email);
+        loginFacade.create(getLogin());
+        getEmail().setUtente(getLogin());
+        emailFacade.edit(getEmail());
         return "index.xhtml";
     }
 
@@ -98,7 +117,7 @@ public class Controller {
      * @return the listEmail
      */
     public List<Email> getListEmail() {
-        Query q=emailFacade.getEntityManager().createNamedQuery("Email.findByUtente", Email.class).setParameter("utente", login);
+        Query q=emailFacade.getEntityManager().createNamedQuery("Email.findByUtente", Email.class).setParameter("utente", getLogin());
         return q.getResultList();
     }
 
@@ -108,4 +127,47 @@ public class Controller {
     public void setListEmail(List<Email> listEmail) {
         this.listEmail = listEmail;
     }
+
+    /**
+     * @return the tipo
+     */
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    /**
+     * @return the sito
+     */
+    public Sito getSito() {
+        return sito;
+    }
+
+    /**
+     * @param sito the sito to set
+     */
+    public void setSito(Sito sito) {
+        this.sito = sito;
+    }
+
+    /**
+     * @param listTipo the listTipo to set
+     */
+    public void setListTipo(List<Tipo> listTipo) {
+        this.listTipo = listTipo;
+    }
+
+    /**
+     * @return the mapTipo
+     */
+    public List<Tipo> getListTipo() {
+        return tipoFacade.findAll();
+    }
+
 }
