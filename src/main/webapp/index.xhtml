@@ -30,14 +30,14 @@
 
                                 <div style="margin-bottom: 25px" class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                    <h:inputText id="login-username" class="form-control" value="#{controller.login.utente}" required="true" requiredMessage="Il campo username é obbligatorio" >
+                                    <h:inputText id="login-username" class="form-control" value="#{controllerLogin.login.utente}" required="true" requiredMessage="Il campo username é obbligatorio" >
                                         <f:passThroughAttribute name="placeholder" value="Digita il tuo nome" />
                                     </h:inputText>
                                 </div>
 
                                 <div style="margin-bottom: 25px" class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                    <h:inputText id="login-password" class="form-control" value="#{controller.login.password}" required="true" requiredMessage="Il campo password é obbligatorio" >
+                                    <h:inputText id="login-password" class="form-control" value="#{controllerLogin.login.password}" required="true" requiredMessage="Il campo password é obbligatorio" >
                                         <f:passThroughAttribute name="type" value="password" />
                                         <f:passThroughAttribute name="placeholder" value="Digita la password" />
                                     </h:inputText>
@@ -47,8 +47,9 @@
                                 <div style="margin-top:10px" class="form-group">
                                     <!-- Button -->
                                     <div class="col-sm-12 controls">
-                                        <h:commandButton id="btn-login" style="float: left" class="btn btn-success" value="ENTRA" action="#{controller.validate()}"/>
-                                        <h:commandButton id="btn-registra" style="float:right" class="btn btn-primary" value="REGISTRAMI" action="registrami.xhtml" />
+                                        <h:commandButton id="btn-login" style="float: left" class="btn btn-success" value="ENTRA" action="#{controllerLogin.validate()}"/>
+                                        <h:commandButton id="btn-registra" style="float:right" class="btn btn-primary" 
+                                                         value="REGISTRAMI" action="registrami.xhtml" />
                                     </div>
                                 </div>
                             </h:form>     

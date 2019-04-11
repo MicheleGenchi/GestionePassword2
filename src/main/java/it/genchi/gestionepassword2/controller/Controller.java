@@ -10,7 +10,6 @@ import it.genchi.gestionepassword2.beans.LoginFacade;
 import it.genchi.gestionepassword2.beans.SitoFacade;
 import it.genchi.gestionepassword2.beans.TipoFacade;
 import it.genchi.gestionepassword2.entities.Email;
-import it.genchi.gestionepassword2.entities.Login;
 import it.genchi.gestionepassword2.entities.Sito;
 import it.genchi.gestionepassword2.entities.Tipo;
 import java.util.ArrayList;
@@ -33,65 +32,29 @@ public class Controller {
     private TipoFacade tipoFacade;
 
     @EJB
-    private EmailFacade emailFacade;
-
-    @EJB
     private LoginFacade loginFacade;
 
-    private  Login login;
-    private  Email email;
+    @EJB
+    private EmailFacade emailFacade;
+    
+
     private Tipo tipo;
     private Sito sito;
-    private List<Email> listEmail;
-    private List<Tipo> listTipo;
-
-            
-    private boolean exist = true;
-
+    private Email email;
+    private List<Sito> listSiti;
+             
     @PostConstruct
     public void init() {
-        login = new Login();
-        email = new Email();
-        listEmail=login.getEmailList();
-        listTipo=new ArrayList<>();
+        tipo=new Tipo();
+        email=new Email();
+        listSiti=new ArrayList<>();
     }
 
-    public String validate() {
-        int count = loginFacade.count(getLogin().getUtente(), getLogin().getPassword());
-        if (count >= 1) {
-            return "entra";
-        } 
-        return "index";
+    public String assignTipo(Tipo item) {
+        tipo=item;
+        return tipo.toString();
     }
-
-    public String add() {
-        loginFacade.create(getLogin());
-        getEmail().setUtente(getLogin());
-        emailFacade.edit(getEmail());
-        return "index.xhtml";
-    }
-
-    /**
-     * @return the login
-     */
-    public Login getLogin() {
-        return login;
-    }
-
-    /**
-     * @return the exist
-     */
-    public boolean isExist() {
-        return exist;
-    }
-
-    /**
-     * @param exist the exist to set
-     */
-    public void setExist(boolean exist) {
-        this.exist = exist;
-    }
-
+    
     /**
      * @return the email
      */
@@ -99,33 +62,12 @@ public class Controller {
         return email;
     }
 
-    /**
-     * @param login the login to set
-     */
-    public void setLogin(Login login) {
-        this.login = login;
-    }
 
     /**
      * @param email the email to set
      */
     public void setEmail(Email email) {
         this.email = email;
-    }
-
-    /**
-     * @return the listEmail
-     */
-    public List<Email> getListEmail() {
-        Query q=emailFacade.getEntityManager().createNamedQuery("Email.findByUtente", Email.class).setParameter("utente", getLogin());
-        return q.getResultList();
-    }
-
-    /**
-     * @param listEmail the listEmail to set
-     */
-    public void setListEmail(List<Email> listEmail) {
-        this.listEmail = listEmail;
     }
 
     /**
@@ -157,17 +99,18 @@ public class Controller {
     }
 
     /**
-     * @param listTipo the listTipo to set
-     */
-    public void setListTipo(List<Tipo> listTipo) {
-        this.listTipo = listTipo;
-    }
-
-    /**
      * @return the mapTipo
      */
     public List<Tipo> getListTipo() {
         return tipoFacade.findAll();
+    }
+
+    /**
+     * @return the listSiti
+     */
+    public List<Sito> getListSiti() {
+           Query q=sitoFacade.getEntityManager().createNamedQuery("Siti.findByTipo", Email.class).setParameter("idTipo", tipo);
+        return q.getResultList();
     }
 
 }

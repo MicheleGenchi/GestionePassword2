@@ -18,5 +18,4 @@ public class SitoFacade extends AbstractFacade<Sito> {
     public SitoFacade() {
         super(Sito.class);
     }
-    
 }

@@ -7,8 +7,6 @@ package it.genchi.gestionepassword2.beans;
 
 import it.genchi.gestionepassword2.entities.Email;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *

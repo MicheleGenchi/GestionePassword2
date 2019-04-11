@@ -17,7 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -44,18 +43,14 @@ public class Email implements Serializable {
     @Column(name = "idEmail")
     private Integer idEmail;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
+    @Size(max = 255)
     @Column(name = "Email")
     private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
+    @Size(max = 255)
     @Column(name = "Password")
     private String password;
     @JoinColumn(name = "utente", referencedColumnName = "Utente")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Login utente;
 
     public Email() {
@@ -63,12 +58,6 @@ public class Email implements Serializable {
 
     public Email(Integer idEmail) {
         this.idEmail = idEmail;
-    }
-
-    public Email(Integer idEmail, String email, String password) {
-        this.idEmail = idEmail;
-        this.email = email;
-        this.password = password;
     }
 
     public Integer getIdEmail() {

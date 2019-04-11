@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Tipo.findAll", query = "SELECT t FROM Tipo t")
     , @NamedQuery(name = "Tipo.findByIdTipo", query = "SELECT t FROM Tipo t WHERE t.idTipo = :idTipo")
-    , @NamedQuery(name = "Tipo.findByDescrizione", query = "SELECT t FROM Tipo t WHERE t.descrizione = :descrizione")})
+    , @NamedQuery(name = "Tipo.findByDescrizione", query = "SELECT t FROM Tipo t WHERE t.descrizione = :descrizione")
+})
 public class Tipo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -108,7 +109,7 @@ public class Tipo implements Serializable {
 
     @Override
     public String toString() {
-        return "it.genchi.gestionepassword2.entities.Tipo[ idTipo=" + idTipo + " ]";
+        return this.descrizione;
     }
     
 }

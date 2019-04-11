@@ -4,12 +4,8 @@
  * and open the template in the editor.
  */
 
-$('#sceltaTipo').click(function(){ myFunction(); return false; });
-
-function myfunction (e) {
-    e.preventDefault();
-    alert("Hello! I am an alert box!!");
-//    var href = $(this).attr("href");
-//    $("#top h2").append("GRUPPO :").append(href);
+function myfunction (gruppo) {
+  // e.preventDefault();
+    $("#top h4").replaceWith("<h4>Gruppo :"+gruppo+"</h4>");
     //window.open(href);
 }

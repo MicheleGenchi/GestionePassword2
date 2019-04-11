@@ -37,7 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Sito.findByDescrizione", query = "SELECT s FROM Sito s WHERE s.descrizione = :descrizione")
     , @NamedQuery(name = "Sito.findByIndirizzo", query = "SELECT s FROM Sito s WHERE s.indirizzo = :indirizzo")
     , @NamedQuery(name = "Sito.findByUtente", query = "SELECT s FROM Sito s WHERE s.utente = :utente")
-    , @NamedQuery(name = "Sito.findByPassword", query = "SELECT s FROM Sito s WHERE s.password = :password")})
+    , @NamedQuery(name = "Sito.findByPassword", query = "SELECT s FROM Sito s WHERE s.password = :password")
+    , @NamedQuery(name = "Sito.Gruppi", query = "SELECT DISTINCT(s.idTipo) FROM Sito s")
+    , @NamedQuery(name = "Siti.findByTipo", query = "SELECT s FROM Sito s WHERE s.idTipo = :idTipo")
+})
 public class Sito implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,7 +70,7 @@ public class Sito implements Serializable {
     @JoinColumn(name = "idTipo", referencedColumnName = "idTipo")
     @ManyToOne(optional = false)
     private Tipo idTipo;
-    @JoinColumn(name = "login", referencedColumnName = "Utente")
+    @JoinColumn(name = "Login", referencedColumnName = "Utente")
     @ManyToOne(optional = false)
     private Login login;
     @OneToMany(mappedBy = "idSito")

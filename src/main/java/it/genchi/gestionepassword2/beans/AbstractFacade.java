@@ -22,30 +22,57 @@ public abstract class AbstractFacade<T> {
 
     @PersistenceContext(unitName = "pu")
     protected EntityManager em;
-    
+
     private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
-    
+
     public EntityManager getEntityManager() {
         return em;
     }
 
     @Transactional
-    public void create(T entity) {
-        em.persist(entity);
+    public synchronized boolean create(T entity) {
+        boolean success = false;
+             try {
+        //        em.getTransaction().begin();
+                em.persist(entity);
+//                em.getTransaction().commit();
+                success = true;
+                return success;
+            } catch (Exception e) {
+                em.clear();
+            } finally {
+                em.close();
+                return success;
+            }
     }
-
+ 
     @Transactional
-    public void edit(T entity) {
-        em.merge(entity);
+    public synchronized void edit(T entity) {
+        try { 
+            em.getTransaction().begin();
+            em.merge(entity);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.clear();
+        } finally {
+           em.close();
+        }
     }
 
     @Transactional
     public void remove(T entity) {
+        try {
         em.remove(em.merge(entity));
+        } 
+        catch (Exception e) {
+           em.clear();
+        } finally  {
+            em.close();
+        }
     }
 
     public T find(Object id) {
@@ -74,6 +101,5 @@ public abstract class AbstractFacade<T> {
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
 
 }

@@ -6,7 +6,6 @@
 package it.genchi.gestionepassword2.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -32,12 +31,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Login.findAll", query = "SELECT l FROM Login l")
     , @NamedQuery(name = "Login.findByUtente", query = "SELECT l FROM Login l WHERE l.utente = :utente")
-    , @NamedQuery(name = "Login.findByPassword", query = "SELECT l FROM Login l WHERE l.password = :password")
-    , @NamedQuery(name = "Login.validation", query = "SELECT count(l) FROM Login l WHERE l.utente=:utente and l.password = :password")
-})
+    , @NamedQuery(name = "Login.findByPassword", query = "SELECT l FROM Login l WHERE l.password = :password")})
 public class Login implements Serializable {
 
-     private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
@@ -49,13 +46,12 @@ public class Login implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "Password")
     private String password;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "utente")
-    private List<Email> emailList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "login")
     private List<Sito> sitoList;
+    @OneToMany(mappedBy = "utente")
+    private List<Email> emailList;
 
     public Login() {
-        
     }
 
     public Login(String utente) {
@@ -81,6 +77,15 @@ public class Login implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @XmlTransient
+    public List<Sito> getSitoList() {
+        return sitoList;
+    }
+
+    public void setSitoList(List<Sito> sitoList) {
+        this.sitoList = sitoList;
     }
 
     @XmlTransient
@@ -115,15 +120,6 @@ public class Login implements Serializable {
     @Override
     public String toString() {
         return "it.genchi.gestionepassword2.entities.Login[ utente=" + utente + " ]";
-    }
-
-    @XmlTransient
-    public List<Sito> getSitoList() {
-        return sitoList;
-    }
-
-    public void setSitoList(List<Sito> sitoList) {
-        this.sitoList = sitoList;
     }
     
 }

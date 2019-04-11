@@ -23,12 +23,11 @@ public class TipoFacade extends AbstractFacade<Tipo> {
         super(Tipo.class);
     }
     
-    public Map<String, String> findAllMap() {
-        List<Tipo> list=findAll();
-        Map<String,String> map=new TreeMap<>();
+    public void convertInMap(List<Tipo> list, Map<String, String> map) {
+        map=new TreeMap<>();
         for (Tipo tipo: list) {
             map.put(tipo.getIdTipo(), tipo.getDescrizione());
         }
-        return map;
     }
+    
 }
