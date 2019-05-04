@@ -11,9 +11,12 @@
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     </h:head>
-    <h:body>
-        <h:outputScript>#{controllerRegistrazione.login.utente=controllerLogin.login.utente};
-            #{controllerRegistrazione.login.password=controllerLogin.login.password}</h:outputScript>
+    <h:body onload="convalida()">
+        <h:outputText id="UtenteEsiste" rendered="true" value="" />
+        <h:outputScript>
+            #{controllerRegistrazione.login.utente=controllerLogin.login.utente};
+            #{controllerRegistrazione.login.password=controllerLogin.login.password}
+        </h:outputScript>
         <center>
             <div class="container">    
                 <div id="loginbox" style="margin-top: 10%" class="mainbox col-lg-4 col-lg-offset-4">                    

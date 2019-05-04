@@ -37,9 +37,7 @@ public abstract class AbstractFacade<T> {
     public synchronized boolean create(T entity) {
         boolean success = false;
              try {
-        //        em.getTransaction().begin();
                 em.persist(entity);
-//                em.getTransaction().commit();
                 success = true;
                 return success;
             } catch (Exception e) {
@@ -53,9 +51,7 @@ public abstract class AbstractFacade<T> {
     @Transactional
     public synchronized void edit(T entity) {
         try { 
-            em.getTransaction().begin();
             em.merge(entity);
-            em.getTransaction().commit();
         } catch (Exception e) {
             em.clear();
         } finally {
@@ -64,7 +60,7 @@ public abstract class AbstractFacade<T> {
     }
 
     @Transactional
-    public void remove(T entity) {
+    public synchronized void remove(T entity) {
         try {
         em.remove(em.merge(entity));
         } 
