@@ -18,4 +18,9 @@
         <managed-bean-class>it.genchi.gestionepassword2.controller.ControllerRegistrazione</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>controllerError</managed-bean-name>
+        <managed-bean-class>it.genchi.gestionepassword2.controller.ControllerError</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>

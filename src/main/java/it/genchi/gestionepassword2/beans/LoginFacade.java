@@ -34,4 +34,14 @@ public class LoginFacade extends AbstractFacade<Login> {
         return ((Long) q.getSingleResult()).intValue();
     }
 
+        public int count(String utente) {
+        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+        Root<Login> rt = cq.from(Login.class);
+        cq.where(
+                em.getCriteriaBuilder().equal(rt.get("utente"), utente)
+        );
+        cq.select(em.getCriteriaBuilder().count(rt));
+        Query q = em.createQuery(cq);
+        return ((Long) q.getSingleResult()).intValue();
+    }
 }

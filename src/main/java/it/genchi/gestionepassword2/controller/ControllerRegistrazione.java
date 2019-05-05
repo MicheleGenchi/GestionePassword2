@@ -25,21 +25,27 @@ public class ControllerRegistrazione {
 
     private Login login;
     private Email email;
-    
+
     @PostConstruct
-    private  void init() {
-        login=new Login();
-        email=new Email();
+    private void init() {
+        login = new Login();
+        email = new Email();
     }
-    
-        public String add(Login login) {
-        boolean success=loginFacade.create(login);
-        if (success) {
+
+    public String add(Login login) {
+        if (!exist()) {
+            loginFacade.create(login);
             email.setUtente(login);
             emailFacade.edit(email);
             return "index.xhtml";
+        } else {
+            return "error.xhtml?messaggio=Utente già registrato";
         }
-        return "error.xhtml?messaggio=Utente già registrato";
+    }
+
+    private boolean exist() {
+        int count = loginFacade.count(login.getUtente());
+        return (count >= 1);
     }
 
     /**
@@ -69,5 +75,5 @@ public class ControllerRegistrazione {
     public void setEmail(Email email) {
         this.email = email;
     }
-    
+
 }

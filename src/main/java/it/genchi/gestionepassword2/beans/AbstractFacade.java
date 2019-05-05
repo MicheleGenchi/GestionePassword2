@@ -34,17 +34,13 @@ public abstract class AbstractFacade<T> {
     }
 
     @Transactional
-    public synchronized boolean create(T entity) {
-        boolean success = false;
+    public synchronized void create(T entity) {
              try {
                 em.persist(entity);
-                success = true;
-                return success;
             } catch (Exception e) {
                 em.clear();
             } finally {
                 em.close();
-                return success;
             }
     }
  
@@ -90,12 +86,16 @@ public abstract class AbstractFacade<T> {
         return q.getResultList();
     }
 
-    public int count() {
+    public int count(String...criteria) {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         Root<T> rt = cq.from(entityClass);
+        for (String s:criteria) {
+              cq.where(
+                em.getCriteriaBuilder().equal(rt.get(s.getClass().getSimpleName()), s.getClass().getSimpleName())
+        );
+        }
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-
 }
