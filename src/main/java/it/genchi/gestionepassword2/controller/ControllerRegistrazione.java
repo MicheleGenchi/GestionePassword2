@@ -32,8 +32,8 @@ public class ControllerRegistrazione {
         email = new Email();
     }
 
-    public String add(Login login) {
-        if (!exist()) {
+    public String add(Login login, Email email) {
+        if ((!exist()) && (login!=null)  & (email!=null) ){
             loginFacade.create(login);
             email.setUtente(login);
             emailFacade.edit(email);

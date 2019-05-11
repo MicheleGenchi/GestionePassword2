@@ -5,7 +5,9 @@
  */
 package it.genchi.gestionepassword2.beans;
 
+import it.genchi.gestionepassword2.entities.Login;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -23,7 +25,7 @@ public abstract class AbstractFacade<T> {
     @PersistenceContext(unitName = "pu")
     protected EntityManager em;
 
-    private Class<T> entityClass;
+    private final Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
@@ -35,34 +37,29 @@ public abstract class AbstractFacade<T> {
 
     @Transactional
     public synchronized void create(T entity) {
-             try {
-                em.persist(entity);
-            } catch (Exception e) {
-                em.clear();
-            } finally {
-                em.close();
-            }
+        try {
+            em.persist(entity);
+        } catch (Exception e) {
+           // em.clear();
+        } 
     }
- 
+
     @Transactional
     public synchronized void edit(T entity) {
-        try { 
+        try {
             em.merge(entity);
         } catch (Exception e) {
             em.clear();
-        } finally {
-           em.close();
         }
     }
 
     @Transactional
     public synchronized void remove(T entity) {
         try {
-        em.remove(em.merge(entity));
-        } 
-        catch (Exception e) {
-           em.clear();
-        } finally  {
+            em.remove(em.merge(entity));
+        } catch (Exception e) {
+            em.clear();
+        } finally {
             em.close();
         }
     }
@@ -86,13 +83,21 @@ public abstract class AbstractFacade<T> {
         return q.getResultList();
     }
 
-    public int count(String...criteria) {
+    public int count() {
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
         Root<T> rt = cq.from(entityClass);
-        for (String s:criteria) {
-              cq.where(
-                em.getCriteriaBuilder().equal(rt.get(s.getClass().getSimpleName()), s.getClass().getSimpleName())
-        );
+        cq.select(em.getCriteriaBuilder().count(rt));
+        Query q = em.createQuery(cq);
+        return ((Long) q.getSingleResult()).intValue();
+    }
+
+    public int count(Map<String, String> map) {
+        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+        Root<Login> rt = cq.from(Login.class);
+        for (Map.Entry e : map.entrySet()) {
+            cq.where(
+                    em.getCriteriaBuilder().equal(rt.get(e.getKey().toString()), e.getValue())
+            );
         }
         cq.select(em.getCriteriaBuilder().count(rt));
         Query q = em.createQuery(cq);

@@ -6,6 +6,9 @@
 package it.genchi.gestionepassword2.beans;
 
 import it.genchi.gestionepassword2.entities.Login;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
@@ -22,26 +25,18 @@ public class LoginFacade extends AbstractFacade<Login> {
         super(Login.class);
     }
 
+    
     public int count(String user, String password) {
-        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        Root<Login> rt = cq.from(Login.class);
-        cq.where(
-                em.getCriteriaBuilder().equal(rt.get("utente"), user),
-                em.getCriteriaBuilder().equal(rt.get("password"), password)
-        );
-        cq.select(em.getCriteriaBuilder().count(rt));
-        Query q = em.createQuery(cq);
-        return ((Long) q.getSingleResult()).intValue();
+        Map<String, String> map = new HashMap<>();
+        map.put("utente", user);
+        map.put("password", password);
+        return super.count(map);
+    }    
+    
+    public int count(String user) {
+        Map<String, String> map = new HashMap<>();
+        map.put("utente", user);
+        return super.count(map);
     }
 
-        public int count(String utente) {
-        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        Root<Login> rt = cq.from(Login.class);
-        cq.where(
-                em.getCriteriaBuilder().equal(rt.get("utente"), utente)
-        );
-        cq.select(em.getCriteriaBuilder().count(rt));
-        Query q = em.createQuery(cq);
-        return ((Long) q.getSingleResult()).intValue();
-    }
 }
