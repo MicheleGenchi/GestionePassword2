@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Sito.findByUtente", query = "SELECT s FROM Sito s WHERE s.utente = :utente")
     , @NamedQuery(name = "Sito.findByPassword", query = "SELECT s FROM Sito s WHERE s.password = :password")
     , @NamedQuery(name = "Sito.Gruppi", query = "SELECT DISTINCT(s.idTipo) FROM Sito s")
-    , @NamedQuery(name = "Siti.findByTipo", query = "SELECT s FROM Sito s WHERE s.idTipo = :idTipo")
+    , @NamedQuery(name = "Siti.findByTipo", query = "SELECT s FROM Sito s WHERE s.login=:login and s.idTipo = :idTipo")
 })
 public class Sito implements Serializable {
 

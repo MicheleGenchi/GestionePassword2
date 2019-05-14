@@ -18,109 +18,110 @@
 
     <h:body>
         <div class="container-fluid">
-            <f:view>
-                <h:form>
-                    <div id="top">
-                        <h:panelGroup id="gruppo">
-                            <ui:insert name="top">Top</ui:insert>
-                            <h3> Utente :#{controllerLogin.login.utente.toUpperCase()}</h3> 
-                            <h4> Gruppo : #{controller.tipo.descrizione}</h4>
+
+            <h:form>
+                <div id="top">
+                    <h:panelGroup id="gruppo">
+                        <ui:insert name="top">Top</ui:insert>
+                        <h3> Utente :#{controllerLogin.login.utente.toUpperCase()}</h3> 
+                        <h4> Gruppo : #{controller.tipo.descrizione}</h4>
+                    </h:panelGroup>
+                </div>
+
+                <div id="left">
+                    <ui:insert name="left"></ui:insert>
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <h1><h:outputText value="Gruppo"/></h1>
+                        </div>
+                        <div class="list-group">
+                            <ui:repeat value="#{controller.listTipo}" var="item">
+                                <h:commandLink  id="sceltaTipo" class="list-group-item" value="#{item}" action="controller.assignTipo(item)">
+                                    
+                                </h:commandLink>
+                            </ui:repeat>
+                        </div>
+                    </div>
+                </div>  
+
+                <div id="right">
+                    <ui:insert name="right"></ui:insert>
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <h1><h:outputText value="Le tue Email"/></h1>
+                        </div>
+                        <h:dataTable class="table" value="#{controllerLogin.listEmail}" var="item">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Email"/>
+                                </f:facet>
+                                <h:outputText value="#{item.email}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Password"/>
+                                </f:facet>
+                                <h:outputText value="#{item.password}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                </div>
+
+                <div id="content" class="left_content right_content">
+                    <ui:insert name="content">Content</ui:insert>
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <h1><h:outputText value="Siti dove sei registrato"/></h1>
+                        </div>
+
+                        <h:panelGroup id="listaSitiByTipo">
+                            <h:dataTable value="#{controller.getListSiti(controllerLogin.login)}" var="item">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Descrizione"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.descrizione}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Indirizzo"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.indirizzo}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Utente"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.utente}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Password"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.password}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="IdTipo"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idTipo.descrizione}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Login"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.login.utente}"/>
+                                </h:column>
+                            </h:dataTable>
                         </h:panelGroup>
-                    </div>
 
-                    <div id="left">
-                        <ui:insert name="left"></ui:insert>
-                        <div class="panel panel-default">
-                            <!-- Default panel contents -->
-                            <div class="panel-heading">
-                                <h1><h:outputText value="Gruppo"/></h1>
-                            </div>
-                            <div class="list-group">
-                                <ui:repeat value="#{controller.listTipo}" var="item">
-                                    <h:commandLink  id="sceltaTipo" class="list-group-item" value="#{item}" action="controller.assignTipo(item)">
-                                    </h:commandLink>
-                                </ui:repeat>
-                            </div>
-                        </div>
-                    </div>  
-
-                    <div id="right">
-                        <ui:insert name="right"></ui:insert>
-                        <div class="panel panel-default">
-                            <!-- Default panel contents -->
-                            <div class="panel-heading">
-                                <h1><h:outputText value="Le tue Email"/></h1>
-                            </div>
-                                <h:dataTable class="table" value="#{controllerLogin.listEmail}" var="item">
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Email"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.email}"/>
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Password"/>
-                                        </f:facet>
-                                        <h:outputText value="#{item.password}"/>
-                                    </h:column>
-                                </h:dataTable>
-                        </div>
                     </div>
+                </div>
+            </h:form>
 
-                    <div id="content" class="left_content right_content">
-                        <ui:insert name="content">Content</ui:insert>
-                        <div class="panel panel-default">
-                            <!-- Default panel contents -->
-                            <div class="panel-heading">
-                                <h1><h:outputText value="Siti dove sei registrato"/></h1>
-                            </div>
-                            <f:view>
-                                <h:panelGroup id="listaSitiByTipo">
-                                    <h:dataTable value="#{controller.listSiti}" var="item">
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Descrizione"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.descrizione}"/>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Indirizzo"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.indirizzo}"/>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Utente"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.utente}"/>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Password"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.password}"/>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="IdTipo"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.idTipo.descrizione}"/>
-                                        </h:column>
-                                        <h:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="Login"/>
-                                            </f:facet>
-                                            <h:outputText value="#{item.login.utente}"/>
-                                        </h:column>
-                                    </h:dataTable>
-                                </h:panelGroup>
-                            </f:view>
-                        </div>
-                    </div>
-                </h:form>
-            </f:view>
         </div>
         <h:outputScript library="js" name="mioScript.js"/>
     </h:body>

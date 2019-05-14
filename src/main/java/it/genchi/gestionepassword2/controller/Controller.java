@@ -10,6 +10,7 @@ import it.genchi.gestionepassword2.beans.LoginFacade;
 import it.genchi.gestionepassword2.beans.SitoFacade;
 import it.genchi.gestionepassword2.beans.TipoFacade;
 import it.genchi.gestionepassword2.entities.Email;
+import it.genchi.gestionepassword2.entities.Login;
 import it.genchi.gestionepassword2.entities.Sito;
 import it.genchi.gestionepassword2.entities.Tipo;
 import java.util.ArrayList;
@@ -46,13 +47,14 @@ public class Controller {
     @PostConstruct
     public void init() {
         tipo=new Tipo();
+        tipo.setIdTipo("AQ");
         email=new Email();
         listSiti=new ArrayList<>();
     }
 
     public String assignTipo(Tipo item) {
         tipo=item;
-        return tipo.toString();
+        return tipo.getDescrizione();
     }
     
     /**
@@ -105,11 +107,14 @@ public class Controller {
         return tipoFacade.findAll();
     }
 
+    
+       
     /**
+     * @param login
      * @return the listSiti
      */
-    public List<Sito> getListSiti() {
-           Query q=sitoFacade.getEntityManager().createNamedQuery("Siti.findByTipo", Email.class).setParameter("idTipo", tipo);
+    public List<Sito> getListSiti(Login login) {
+           Query q=sitoFacade.getEntityManager().createNamedQuery("Siti.findByTipo", Sito.class).setParameter("login", login).setParameter("idTipo", tipo);
         return q.getResultList();
     }
 
