@@ -48,13 +48,9 @@ public class Controller {
     public void init() {
         tipo=new Tipo();
         tipo.setIdTipo("AQ");
+        tipo.setDescrizione("ACQUISTO");
         email=new Email();
         listSiti=new ArrayList<>();
-    }
-
-    public String assignTipo(Tipo item) {
-        tipo=item;
-        return tipo.getDescrizione();
     }
     
     /**
@@ -111,6 +107,7 @@ public class Controller {
        
     /**
      * @param login
+     * @param tipo
      * @return the listSiti
      */
     public List<Sito> getListSiti(Login login) {

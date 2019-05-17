@@ -24,7 +24,6 @@ public class LoginFacade extends AbstractFacade<Login> {
     public LoginFacade() {
         super(Login.class);
     }
-
     
     public int count(String user, String password) {
         Map<String, String> map = new HashMap<>();

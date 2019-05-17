@@ -40,7 +40,7 @@ public class ControllerLogin implements Serializable {
         listEmail = new ArrayList<>();
     }
 
-    public String validate() {
+   public String validate() {
         int count = loginFacade.count(login.getUtente(), login.getPassword());
         if (count >= 1) {
             exist=true;

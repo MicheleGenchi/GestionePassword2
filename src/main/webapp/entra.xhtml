@@ -37,8 +37,8 @@
                         </div>
                         <div class="list-group">
                             <ui:repeat value="#{controller.listTipo}" var="item">
-                                <h:commandLink  id="sceltaTipo" class="list-group-item" value="#{item}" action="controller.assignTipo(item)">
-                                    
+                                <h:commandLink  id="sceltaTipo" class="list-group-item" value="#{item}" action="#{controller.setTipo(item)}">
+                                    <f:ajax execute="@form" render="listaSitiByTipo" />
                                 </h:commandLink>
                             </ui:repeat>
                         </div>
