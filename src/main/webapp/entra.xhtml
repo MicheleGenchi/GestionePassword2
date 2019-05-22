@@ -38,7 +38,6 @@
                         <div class="list-group">
                             <ui:repeat value="#{controller.listTipo}" var="item">
                                 <h:commandLink  id="sceltaTipo" class="list-group-item" value="#{item}" action="#{controller.setTipo(item)}">
-                                    <f:ajax execute="@form" render="listaSitiByTipo" />
                                 </h:commandLink>
                             </ui:repeat>
                         </div>
@@ -107,7 +106,7 @@
                                     <f:facet name="header">
                                         <h:outputText value="IdTipo"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.idTipo.descrizione}"/>
+                                    <h:outputText value="#{item.idTipo}"/>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
