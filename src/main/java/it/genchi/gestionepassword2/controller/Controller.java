@@ -19,7 +19,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.persistence.Query;
 
-
 /**
  *
  * @author JAVASE
@@ -37,29 +36,27 @@ public class Controller {
 
     @EJB
     private EmailFacade emailFacade;
-    
 
     private Tipo tipo;
     private Sito sito;
     private Email email;
     private List<Sito> listSiti;
-             
+
     @PostConstruct
     public void init() {
-        tipo=new Tipo();
+        tipo = new Tipo();
         tipo.setIdTipo("AQ");
         tipo.setDescrizione("ACQUISTO");
-        email=new Email();
-        listSiti=new ArrayList<>();
+        email = new Email();
+        listSiti = new ArrayList<>();
     }
-    
+
     /**
      * @return the email
      */
     public Email getEmail() {
         return email;
     }
-
 
     /**
      * @param email the email to set
@@ -103,15 +100,19 @@ public class Controller {
         return tipoFacade.findAll();
     }
 
-    
-       
+    public boolean aggiungiEmail(Login login) {
+        email.setUtente(login);
+        emailFacade.create(email);
+        loginFacade.edit(login);
+        return true;
+    }
+
     /**
      * @param login
-     * @param tipo
      * @return the listSiti
      */
     public List<Sito> getListSiti(Login login) {
-           Query q=sitoFacade.getEntityManager().createNamedQuery("Siti.findByTipo", Sito.class).setParameter("login", login).setParameter("idTipo", tipo);
+        Query q = sitoFacade.getEntityManager().createNamedQuery("Siti.findByTipo", Sito.class).setParameter("login", login).setParameter("idTipo", tipo);
         return q.getResultList();
     }
 

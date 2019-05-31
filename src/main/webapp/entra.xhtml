@@ -45,31 +45,52 @@
                 </div>  
 
                 <div id="right">
-                    <ui:insert name="right"></ui:insert>
-                    <div class="panel panel-default">
-                        <!-- Default panel contents -->
-                        <div class="panel-heading">
-                            <h1><h:outputText value="Le tue Email"/></h1>
+                    <h:panelGroup id="listaEmail">
+                        <ui:insert name="right"></ui:insert>
+                        <div class="panel panel-default">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">
+                                <h1><h:outputText value="Le tue Email"/></h1>
+                            </div>
+                            <h:dataTable class="table" value="#{controllerLogin.listEmail}" var="item">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Email"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.email}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Password"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.password}"/>
+                                </h:column>
+                            </h:dataTable>
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        <h:inputText value="#{controller.email.email}" id="email" />
+                                    </th>
+                                    <th>
+                                        <h:inputText value="#{controller.email.password}" id="password"/>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2"><center>
+                            <h:commandButton class="btn btn-primary" value="aggiungi" action="#{controller.aggiungiEmail(controllerLogin.login)}">
+                                <f:ajax execute="@form" render="listaEmail" />
+                            </h:commandButton>
+                                        </center>
+                                    </th>
+                                </tr>
+                            </table>
                         </div>
-                        <h:dataTable class="table" value="#{controllerLogin.listEmail}" var="item">
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Email"/>
-                                </f:facet>
-                                <h:outputText value="#{item.email}"/>
-                            </h:column>
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Password"/>
-                                </f:facet>
-                                <h:outputText value="#{item.password}"/>
-                            </h:column>
-                        </h:dataTable>
-                    </div>
+                    </h:panelGroup>
                 </div>
 
+
                 <div id="content" class="left_content right_content">
-                    <ui:insert name="content">Content</ui:insert>
+                   <ui:insert name="content"></ui:insert>
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
                         <div class="panel-heading">
@@ -77,7 +98,7 @@
                         </div>
 
                         <h:panelGroup id="listaSitiByTipo">
-                            <h:dataTable value="#{controller.getListSiti(controllerLogin.login)}" var="item">
+                            <h:dataTable  class="table" value="#{controller.getListSiti(controllerLogin.login)}" var="item">
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Descrizione"/>
